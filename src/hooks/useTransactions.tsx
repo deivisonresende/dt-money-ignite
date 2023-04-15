@@ -26,29 +26,38 @@ type TransactionInput = Omit<Transaction, 'id'>;
 
 interface TransactionContext {
   transactions: Transaction[];
-  createTransaction: (transaction: TransactionInput) => void;
+  createTransaction: (transaction: TransactionInput) => Promise<void>;
+  reloadTransactions: () => void
 }
 
 const Context = createContext<TransactionContext>({} as TransactionContext);
 
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [hasUpdate, setHasUpdate] = useState(false);
 
   useEffect(() => {
     api
       .get('/transactions')
       .then(response => setTransactions(response.data.transactions));
-  }, []);
+  }, [hasUpdate]);
 
-  function createTransaction(transaction: TransactionInput) {
-    api.post('/transactions', transaction);
+  async function createTransaction(transaction: TransactionInput) {
+    api.post('/transactions', JSON.stringify(transaction));
+  }
+
+  function reloadTransactions(){
+    console.log(hasUpdate)
+    setHasUpdate(!hasUpdate);
+    console.log(hasUpdate)
   }
 
   return (
     <Context.Provider
       value={{
         transactions,
-        createTransaction
+        createTransaction,
+        reloadTransactions
       }}
     >
       {children}

@@ -1,6 +1,5 @@
-import { Container } from './styles';
+import { Container, NoContentSpan } from './styles';
 import { useTransactions } from '../../hooks/useTransactions';
-import { useContext } from 'react';
 
 export function TransactionsTable() {
   const { transactions } = useTransactions();
@@ -39,6 +38,8 @@ export function TransactionsTable() {
           )}
         </tbody>
       </table>
+
+      { transactions.length ? '' : <NoContentSpan>Não há transações a serem exibidas</NoContentSpan>}
     </Container>
   );
 }

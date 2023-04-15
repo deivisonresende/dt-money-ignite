@@ -14,6 +14,14 @@ export const Content = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  @media (min-width: 401px) {
+    flex-direction: row;
+  }
+
+  @media (max-width: 400px) {
+    flex-direction: column;
+  }
+
   button {
     color: #fff;
     background: var(--black-light);
@@ -28,6 +36,10 @@ export const Content = styled.div`
     justify-content: space-between;
 
     transition: filter 0.3s;
+
+    @media (max-width: 400px) {
+      margin-top: 3rem;
+    }
 
     &:hover {
       filter: brightness(0.7);

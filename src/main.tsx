@@ -11,32 +11,7 @@ createServer({
 
   seeds(server) {
     server.db.loadData({
-      transactions: [
-        {
-          id: 1,
-          title: 'Desenvolvimento de site',
-          type: 'deposit',
-          category: 'Desenvolvimento',
-          value: 5000,
-          createdAt: new Date('2023/04/15').toISOString()
-        },
-        {
-          id: 2,
-          title: 'Manutenção api',
-          type: 'deposit',
-          category: 'Desenvolvimento',
-          value: 800,
-          createdAt: new Date('2023/04/16').toISOString()
-        },
-        {
-          id: 3,
-          title: 'Prestação',
-          type: 'withdraw',
-          category: 'Casa',
-          value: -1700,
-          createdAt: new Date('2023/04/17').toISOString()
-        }
-      ]
+      transactions: []
     });
   },
 
@@ -48,7 +23,7 @@ createServer({
     });
 
     this.post('/transactions', (schema, request) => {
-      const data = JSON.parse(JSON.stringify(request.requestBody))
+      const data = JSON.parse(request.requestBody)
       return this.schema.create('transaction', data)
     });
   }
