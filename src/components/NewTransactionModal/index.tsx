@@ -3,10 +3,10 @@ import {
   TransactionTypeButton,
   TransactionTypeContainer
 } from './styles';
-import { FormEvent, useContext, useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import Modal from 'react-modal';
-import { Context as TransactionContext } from '../../context/Transactions';
+import { useTransactions } from '../../hooks/useTransactions';
 import close from '../../assets/close.svg';
 import income from '../../assets/income.svg';
 import outcome from '../../assets/outcome.svg';
@@ -27,7 +27,7 @@ export function NewTransactionModal({
   const [category, setCategory] = useState('');
   const [transactionType, setTransactionType] = useState('deposit');
 
-  const { createTransaction } = useContext(TransactionContext);
+  const { createTransaction } = useTransactions();
 
   function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();

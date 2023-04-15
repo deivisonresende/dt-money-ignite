@@ -1,14 +1,17 @@
-import { Transaction } from "../../../context/Transactions";
+import { Transaction } from '../../../hooks/useTransactions';
 
 type transactionType = 'deposit' | 'withdraw';
 
 interface SumTransactionsByTypeProps {
   type: transactionType;
-  transactions: Transaction[]
+  transactions: Transaction[];
 }
 
-export function sumTransactionsByType ({transactions, type }: SumTransactionsByTypeProps) {
+export function sumTransactionsByType({
+  transactions,
+  type
+}: SumTransactionsByTypeProps) {
   return transactions
-  .filter(transaction => transaction.type === type)
-  .reduce((acc, current) => acc + current.value, 0);
+    .filter(transaction => transaction.type === type)
+    .reduce((acc, current) => acc + current.value, 0);
 }
