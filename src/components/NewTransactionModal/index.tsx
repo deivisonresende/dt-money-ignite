@@ -3,10 +3,10 @@ import {
   TransactionTypeButton,
   TransactionTypeContainer
 } from './styles';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 
 import Modal from 'react-modal';
-import { api } from '../../services/api';
+import { Context as TransactionContext } from '../../context/Transactions';
 import close from '../../assets/close.svg';
 import income from '../../assets/income.svg';
 import outcome from '../../assets/outcome.svg';
@@ -27,18 +27,25 @@ export function NewTransactionModal({
   const [category, setCategory] = useState('');
   const [transactionType, setTransactionType] = useState('deposit');
 
+  const { createTransaction } = useContext(TransactionContext);
+
   function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    const data = {
+    console.log({
       title,
       value,
       category,
       type: transactionType
-    }
-    
-    api.post('/transactions', data)
-   
+    })
+
+    createTransaction({
+      title,
+      value,
+      category,
+      type: transactionType,
+      createdAt: new Date().toISOString()
+    });
   }
 
   return (
@@ -104,9 +111,7 @@ export function NewTransactionModal({
             onChange={e => setCategory(e.target.value)}
           />
 
-          <button type="submit">
-            Cadastrar
-          </button>
+          <button type="submit">Cadastrar</button>
         </Container>
       </Modal>
     </>

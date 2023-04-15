@@ -1,7 +1,7 @@
 import { CURRENCY } from '../../config';
 import { Container } from './styles';
 import { FormatNumber } from '../../utils/formatNumber';
-import { TransactionContext } from '../../TransactionsContext';
+import { Context as TransactionContext } from '../../context/Transactions';
 import income from '../../assets/income.svg';
 import outcome from '../../assets/outcome.svg';
 import { sumTransactionsByType } from './utils/sumTransactionsByType';
@@ -9,7 +9,7 @@ import total from '../../assets/total.svg';
 import { useContext } from 'react';
 
 export function Summary() {
-  const transactions = useContext(TransactionContext);
+  const { transactions } = useContext(TransactionContext);
 
   const depositTotal = sumTransactionsByType({ transactions, type: 'deposit' });
   const withdrawTotal = sumTransactionsByType({

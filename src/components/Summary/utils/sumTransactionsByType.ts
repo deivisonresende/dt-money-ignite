@@ -1,10 +1,10 @@
-import { Transactions } from "../../../TransactionsContext";
+import { Transaction } from "../../../context/Transactions";
 
 type transactionType = 'deposit' | 'withdraw';
 
 interface SumTransactionsByTypeProps {
   type: transactionType;
-  transactions: Transactions[]
+  transactions: Transaction[]
 }
 
 export function sumTransactionsByType ({transactions, type }: SumTransactionsByTypeProps) {
